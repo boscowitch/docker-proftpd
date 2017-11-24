@@ -10,4 +10,6 @@ PASSWORD2=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD2)
 id -u $USERNAME2 >/dev/null 2>&1 || useradd --shell /bin/sh --create-home -d /ftp/$USERNAME2  --password $PASSWORD2 $USERNAME2
 chown -R $USERNAME2:$USERNAME2 /ftp/$USERNAME2
 
+echo "MasqueradeAddress $FTP_DOMAIN" >> /etc/proftpd/proftpd.conf
+
 exec proftpd --nodaemon
