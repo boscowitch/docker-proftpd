@@ -1,7 +1,13 @@
 #!/bin/bash -e
 
-echo Setting credentials to $USERNAME:$PASSWORD
-PASSWORD=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD)
-id -u $USERNAME &>/dev/null || useradd --shell /bin/sh --create-home --password $PASSWORD $USERNAME
-chown -R $USERNAME:$USERNAME /ftp
+echo Setting credentials to $USERNAME1:$PASSWORD1
+PASSWORD1=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD1)
+id -u $USERNAME1 >/dev/null 2>&1 || useradd --shell /bin/sh --create-home -d /ftp/$USERNAME1 --password $PASSWORD1 $USERNAME1
+chown -R $USERNAME:$USERNAME /ftp/$USERNAME1
+
+echo Setting credentials for user2  to $USERNAME2:$PASSWORD2
+PASSWORD2=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD2)
+id -u $USERNAME2 >/dev/null 2>&1 || useradd --shell /bin/sh --create-home -d /ftp/$USERNAME2  --password $PASSWORD2 $USERNAME2
+chown -R $USERNAME2:$USERNAME2 /ftp/$USERNAME2
+
 exec proftpd --nodaemon
