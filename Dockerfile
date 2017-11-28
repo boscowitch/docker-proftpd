@@ -11,7 +11,7 @@ RUN mkdir /ftp
 RUN apt-get install -y cron
 ADD ./cron.txt /cron.txt
 RUN crontab -u root /cron.txt
-RUN /etc/init.d/cron restart
+#RUN /etc/init.d/cron restart
 
 
 EXPOSE 21

@@ -12,4 +12,7 @@ chown -R $USERNAME2:$USERNAME2 /ftp/$USERNAME2
 
 echo "MasqueradeAddress $FTP_DOMAIN" >> /etc/proftpd/proftpd.conf
 
+echo "Start cron"
+service cron start
+
 exec proftpd --nodaemon
