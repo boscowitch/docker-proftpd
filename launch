@@ -14,9 +14,11 @@ echo "MasqueradeAddress $FTP_DOMAIN" > /etc/proftpd/MasqueradeAddress.conf
 
 echo "*/15 0 * * * /bin/chown -R $USERNAME1:$USERNAME1 /ftp/$USERNAME1" >> /cron.txt
 echo "*/15 0 * * * /bin/chown -R $USERNAME2:$USERNAME2 /ftp/$USERNAME2" >> /cron.txt
-crontab -u root /cron.txt
 
 echo "Start cron"
 service cron start
+
+crontab -u root /cron.txt
+
 
 exec proftpd --nodaemon
