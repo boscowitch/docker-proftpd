@@ -3,7 +3,7 @@
 echo Setting credentials to $USERNAME1:$PASSWORD1
 PASSWORD1=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD1)
 id -u $USERNAME1 >/dev/null 2>&1 || useradd --shell /bin/sh --create-home -d /ftp/$USERNAME1 --password $PASSWORD1 $USERNAME1
-chown -R $USERNAME:$USERNAME /ftp/$USERNAME1
+chown -R $USERNAME1:$USERNAME1 /ftp/$USERNAME1
 
 echo Setting credentials for user2  to $USERNAME2:$PASSWORD2
 PASSWORD2=$(perl -e 'print crypt($ARGV[0], "password")' $PASSWORD2)
@@ -11,6 +11,10 @@ id -u $USERNAME2 >/dev/null 2>&1 || useradd --shell /bin/sh --create-home -d /ft
 chown -R $USERNAME2:$USERNAME2 /ftp/$USERNAME2
 
 echo "MasqueradeAddress $FTP_DOMAIN" > /etc/proftpd/MasqueradeAddress.conf
+
+echo "15 0 * * * chown -R $USERNAME1:$USERNAME1 /ftp/$USERNAME1" >> /cron.txt
+echo "15 0 * * * chown -R $USERNAME2:$USERNAME2 /ftp/$USERNAME2" >> /cron.txt
+
 
 echo "Start cron"
 service cron start
